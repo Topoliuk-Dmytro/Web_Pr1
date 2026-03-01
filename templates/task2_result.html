@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Результат — Завдання 2</title>
+    <style>
+        :root { --bg: #0f1419; --card: #1a2332; --accent: #3b82f6; --text: #e2e8f0; --muted: #94a3b8; }
+        * { box-sizing: border-box; }
+        body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 1.5rem; line-height: 1.6; }
+        .container { max-width: 700px; margin: 0 auto; }
+        h1 { font-size: 1.5rem; margin-bottom: 1rem; }
+        .card { background: var(--card); border-radius: 12px; padding: 1.25rem; margin-bottom: 1rem; border: 1px solid rgba(255,255,255,0.06); }
+        .card h2 { font-size: 1rem; color: var(--accent); margin: 0 0 0.75rem 0; }
+        .row { margin-bottom: 0.5rem; }
+        .btn { display: inline-block; background: var(--accent); color: white; padding: 0.5rem 1rem; border-radius: 8px; text-decoration: none; font-size: 0.9rem; margin-top: 1rem; }
+        .btn:hover { opacity: 0.9; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Результат Завдання 2</h1>
+        <p style="color: var(--muted);">Горюча маса: C<sub>Г</sub>={{.Input.Cg}}%; H<sub>Г</sub>={{.Input.Hg}}%; O<sub>Г</sub>={{.Input.Og}}%; S<sub>Г</sub>={{.Input.Sg}}%; Q<sub>Г</sub>={{.Input.QgH}} МДж/кг; W<sub>P</sub>={{.Input.Wr}}%; A<sub>d</sub>={{.Input.Ad}}%; V={{.Input.Vg}} мг/кг</p>
+
+        <div class="card">
+            <h2>Склад робочої маси мазуту</h2>
+            <div class="row">2.1. H<sub>Р</sub>={{.Result.WorkingMass.HP}}%; C<sub>Р</sub>={{.Result.WorkingMass.CP}}%; S<sub>Р</sub>={{.Result.WorkingMass.SP}}%; O<sub>Р</sub>={{.Result.WorkingMass.OP}}%; A<sub>Р</sub>={{.Result.WorkingMass.AP}}%; V<sub>Р</sub>={{.Result.Vr}} мг/кг</div>
+        </div>
+
+        <div class="card">
+            <h2>Нижча теплота згоряння</h2>
+            <div class="row">2.2. Нижча теплота згоряння мазуту на робочу масу: <strong>{{.Result.QrH}}</strong> МДж/кг</div>
+        </div>
+
+        <a href="/" class="btn">← Назад до калькулятора</a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Веб-калькулятор палива — Практична робота 1</title>
+    <style>
+        :root {
+            --bg: #0f1419;
+            --card: #1a2332;
+            --accent: #3b82f6;
+            --text: #e2e8f0;
+            --muted: #94a3b8;
+        }
+        * { box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 1.5rem;
+            line-height: 1.6;
+        }
+        .container { max-width: 900px; margin: 0 auto; }
+        h1 {
+            font-size: 1.75rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        .subtitle { color: var(--muted); margin-bottom: 2rem; }
+        .card {
+            background: var(--card);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(255,255,255,0.06);
+        }
+        .card h2 {
+            font-size: 1.15rem;
+            margin: 0 0 1rem 0;
+            color: var(--accent);
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 0.75rem;
+        }
+        .field label {
+            display: block;
+            font-size: 0.8rem;
+            color: var(--muted);
+            margin-bottom: 0.25rem;
+        }
+        .field input {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 6px;
+            background: rgba(0,0,0,0.2);
+            color: var(--text);
+            font-size: 0.95rem;
+        }
+        .field input:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+        .btn {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 0.6rem 1.2rem;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            cursor: pointer;
+            margin-top: 1rem;
+        }
+        .btn:hover { opacity: 0.9; }
+        .variant-btn {
+            background: rgba(59,130,246,0.2);
+            color: var(--accent);
+            border: 1px solid var(--accent);
+            padding: 0.4rem 0.8rem;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            margin-top: 0.5rem;
+        }
+        .variant-btn:hover { background: rgba(59,130,246,0.3); }
+        footer { margin-top: 2rem; color: var(--muted); font-size: 0.85rem; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Веб-калькулятор палива</h1>
+        <p class="subtitle">Розрахунок складу сухої та горючої маси та нижчої теплоти згоряння</p>
+
+        <div class="card">
+            <h2>Завдання 1</h2>
+            <p style="color: var(--muted); font-size: 0.9rem; margin-bottom: 1rem;">
+                Розрахунок складу сухої та горючої маси та нижчої теплоти згоряння за складом робочої маси (H<sub>P</sub>, C<sub>P</sub>, S<sub>P</sub>, N<sub>P</sub>, O<sub>P</sub>, W<sub>P</sub>, A<sub>P</sub>).
+            </p>
+            <form action="/task1" method="post">
+                <div class="grid">
+                    <div class="field"><label>H<sub>P</sub>, %</label><input type="text" name="hp" value="{{.Variant2.HP}}" placeholder="Водень"></div>
+                    <div class="field"><label>C<sub>P</sub>, %</label><input type="text" name="cp" value="{{.Variant2.CP}}" placeholder="Вуглець"></div>
+                    <div class="field"><label>S<sub>P</sub>, %</label><input type="text" name="sp" value="{{.Variant2.SP}}" placeholder="Сірка"></div>
+                    <div class="field"><label>N<sub>P</sub>, %</label><input type="text" name="np" value="{{.Variant2.NP}}" placeholder="Азот"></div>
+                    <div class="field"><label>O<sub>P</sub>, %</label><input type="text" name="op" value="{{.Variant2.OP}}" placeholder="Кисень"></div>
+                    <div class="field"><label>W<sub>P</sub>, %</label><input type="text" name="wp" value="{{.Variant2.WP}}" placeholder="Волога"></div>
+                    <div class="field"><label>A<sub>P</sub>, %</label><input type="text" name="ap" value="{{.Variant2.AP}}" placeholder="Зола"></div>
+                </div>
+                <button type="button" class="variant-btn" onclick="fillVariant2()">Заповнити варіант 2</button>
+                <button type="submit" class="btn">Розрахувати</button>
+            </form>
+        </div>
+
+        <div class="card">
+            <h2>Завдання 2</h2>
+            <p style="color: var(--muted); font-size: 0.9rem; margin-bottom: 1rem;">
+                Перерахунок елементарного складу та нижчої теплоти згоряння мазуту з горючої маси на робочу.
+            </p>
+            <form action="/task2" method="post">
+                <div class="grid">
+                    <div class="field"><label>C<sub>Г</sub>, %</label><input type="text" name="cg" value="85.5" placeholder="Вуглець"></div>
+                    <div class="field"><label>H<sub>Г</sub>, %</label><input type="text" name="hg" value="11.2" placeholder="Водень"></div>
+                    <div class="field"><label>O<sub>Г</sub>, %</label><input type="text" name="og" value="0.8" placeholder="Кисень"></div>
+                    <div class="field"><label>S<sub>Г</sub>, %</label><input type="text" name="sg" value="2.5" placeholder="Сірка"></div>
+                    <div class="field"><label>Q<sub>Г</sub>, МДж/кг</label><input type="text" name="qgh" value="40.4" placeholder="Теплота горючої"></div>
+                    <div class="field"><label>W<sub>P</sub>, %</label><input type="text" name="wr" value="2" placeholder="Волога"></div>
+                    <div class="field"><label>A<sub>d</sub>, %</label><input type="text" name="ad" value="0.15" placeholder="Зольність сухої"></div>
+                    <div class="field"><label>V, мг/кг</label><input type="text" name="vg" value="333.3" placeholder="Ванадій"></div>
+                </div>
+                <button type="button" class="variant-btn" onclick="fillVariant2Task2()">Контрольний приклад</button>
+                <button type="submit" class="btn">Розрахувати</button>
+            </form>
+        </div>
+
+        <footer>Практична робота №1 — ПВЗ. Варіант 2.</footer>
+    </div>
+    <script>
+        const v2 = { HP: 4.2, CP: 62.1, SP: 3.2, NP: 20.6, OP: 6.4, WP: 0.7, AP: 2.8 };
+        function fillVariant2() {
+            document.querySelector('[name="hp"]').value = v2.HP;
+            document.querySelector('[name="cp"]').value = v2.CP;
+            document.querySelector('[name="sp"]').value = v2.SP;
+            document.querySelector('[name="np"]').value = v2.NP;
+            document.querySelector('[name="op"]').value = v2.OP;
+            document.querySelector('[name="wp"]').value = v2.WP;
+            document.querySelector('[name="ap"]').value = v2.AP;
+        }
+        function fillVariant2Task2() {
+            document.querySelector('[name="cg"]').value = 85.5;
+            document.querySelector('[name="hg"]').value = 11.2;
+            document.querySelector('[name="og"]').value = 0.8;
+            document.querySelector('[name="sg"]').value = 2.5;
+            document.querySelector('[name="qgh"]').value = 40.4;
+            document.querySelector('[name="wr"]').value = 2;
+            document.querySelector('[name="ad"]').value = 0.15;
+            document.querySelector('[name="vg"]').value = 333.3;
+        }
+    </script>
+</body>
+</html>
